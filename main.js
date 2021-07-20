@@ -59,8 +59,13 @@ const questions = [
     }
 ];
 
-numberOfAllQuestion.innerHTML = questions.length //Выводим количесвто вопросов
+let completedAnswers = []; //Массив для уже заданных вопросов
 
+numberOfAllQuestion.textContent = questions.length //Выводим количесвто вопросов
+
+
+
+//Functions
 const load = () => {
     question.innerHTML = questions[indexOfQuestion].question;
     //мапим ответы
@@ -72,8 +77,6 @@ const load = () => {
     numberOfQuestion.innerHTML = indexOfPage + 1; //Утсановка номера текущей страницы
     indexOfPage++;//Увеличение индекса страницы
 };
-
-let completedAnswers = []; //Массив для уже заданных вопросов
 
 const randomQuestion = () => {
     let randomNumber = Math.floor(Math.random() * questions.length);
@@ -116,9 +119,6 @@ const checkAnswer = e => {
     
 };
 
-for(option of optionElements) {
-    option.addEventListener('click', e => checkAnswer(e))
-};
 
 const disabledOptions = () => {
     optionElements.forEach(item => {
@@ -165,11 +165,17 @@ const tryAgain = () => {
     window.location.reload();
 };
 
+
+// Event Listeners
 btnTryAgain.addEventListener('click', tryAgain);
 
 btnNext.addEventListener('click', () => {
     validate();
 });
+
+for(option of optionElements) {
+    option.addEventListener('click', e => checkAnswer(e))
+};
 
 window.addEventListener('load', () => {
     randomQuestion();
